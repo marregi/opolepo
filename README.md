@@ -1,4 +1,4 @@
-# OpoFolio
+# opolepo
 
 Panel de preparación de oposiciones en React. Incluye una demostración local con 17 preguntas, cuatro categorías y tres sesiones de ejemplo. Al iniciar sesión con Supabase se abre un historial personal vacío. Las sesiones conservan una copia de sus preguntas y respuestas para que la edición posterior no altere los resultados.
 

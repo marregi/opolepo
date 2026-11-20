@@ -344,7 +344,7 @@ function App() {
           <span>
             <Layers3 />
           </span>
-          OpoFolio<b>.</b>
+          opolepo<b>.</b>
         </div>
         <div className="navgroup">
           <label>ESPACIO DE ESTUDIO</label>
