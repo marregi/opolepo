@@ -1,0 +1,23 @@
+{
+  "id": "ce-titulo-preliminar",
+  "title": "Constitución Española · Prueba con el artículo 1",
+  "category": "Constitución Española",
+  "questions": [
+    {
+      "id": "ce-art1-estado",
+      "text": "Según el artículo 1.1, ¿en qué tipo de Estado se constituye España?",
+      "options": ["Un Estado confederal", "Un Estado social y democrático de Derecho", "Un Estado federal", "Un Estado unitario centralizado"],
+      "correct": 1,
+      "section": "Título preliminar › Artículo 1",
+      "quote": "España se constituye en un Estado social y democrático de Derecho"
+    },
+    {
+      "id": "ce-art1-valores",
+      "text": "Según el artículo 1.1, ¿cuáles son los valores superiores del ordenamiento jurídico?",
+      "options": ["La unidad, la autonomía y la solidaridad", "La libertad, la seguridad y la legalidad", "La libertad, la justicia, la igualdad y el pluralismo político", "La justicia, el mérito y la capacidad"],
+      "correct": 2,
+      "section": "Título preliminar › Artículo 1",
+      "quote": "la libertad, la justicia, la igualdad y el pluralismo político"
+    }
+  ]
+}
