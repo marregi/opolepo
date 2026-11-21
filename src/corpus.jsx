@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { BookOpen, Plus, ExternalLink } from "lucide-react";
 import { categories } from "./data";
 import { newId } from "./uuid";
+const constitution = {
+  cat: categories.indexOf("Constitución Española"),
+  url: "https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229",
+  title: "Texto consolidado de la Constitución Española (BOE)",
+};
 export default function Corpus({ qs, db, docs, addDoc, openNotes, admin }) {
   const [adding, A] = useState(false),
     [msg, M] = useState(""),
@@ -98,15 +103,20 @@ export default function Corpus({ qs, db, docs, addDoc, openNotes, admin }) {
       )}
       {msg && <p role="alert">{msg}</p>}
       <div className="cards">
-        {categories.map((c, i) => (
+        {categories.map((c, i) => {
+          const notes = docs.filter(d => d.cat === i && d.markdown);
+          const links = new Map([
+            ...qs.filter(q => q.cat === i && q.url && !q.citation).map(q => [q.url, q.source]),
+            ...[constitution, ...docs].filter(d => d.cat === i && d.url).map(d => [d.url, d.title]),
+          ]);
+          if (!notes.length && !links.size) return null;
+          return (
           <section className="card" key={c}>
             <span className={"tile c" + i}>
               <BookOpen />
             </span>
             <h3>{c}</h3>
-            {docs
-              .filter((d) => d.cat === i && d.markdown)
-              .map((d) => (
+            {notes.map((d) => (
                 <button
                   key={d.id}
                   className="note-link"
@@ -116,23 +126,14 @@ export default function Corpus({ qs, db, docs, addDoc, openNotes, admin }) {
                   {d.title}
                 </button>
               ))}
-            {[
-              ...new Map([
-                ...qs
-                  .filter((q) => q.cat === i && q.url && !q.citation)
-                  .map((q) => [q.url, q.source]),
-                ...docs
-                  .filter((d) => d.cat === i && d.url)
-                  .map((d) => [d.url, d.title]),
-              ]).entries(),
-            ].map(([url, title]) => (
+            {[...links].map(([url, title]) => (
               <a key={url} href={url} target="_blank" rel="noreferrer">
                 {title}
                 <ExternalLink size={14} />
               </a>
             ))}
           </section>
-        ))}
+        );})}
       </div>
     </>
   );
