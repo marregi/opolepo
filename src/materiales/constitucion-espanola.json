@@ -1,0 +1,47 @@
+{
+  "id": "constitucion-espanola",
+  "title": "Constitución Española · Texto consolidado",
+  "category": "Constitución Española",
+  "questions": [
+    {
+      "id": "ce-art3-oficialidad",
+      "text": "Según el artículo 3.2, ¿qué norma determina la oficialidad de las demás lenguas españolas en la respectiva comunidad autónoma?",
+      "options": ["El reglamento de su asamblea legislativa", "Su estatuto de autonomía", "La ley estatal de educación", "El reglamento de su gobierno autonómico"],
+      "correct": 1,
+      "section": "Constitución Española › TÍTULO PRELIMINAR › Artículo 3",
+      "quote": "Las demás lenguas españolas serán también oficiales en las respectivas Comunidades Autónomas de acuerdo con sus Estatutos."
+    },
+    {
+      "id": "ce-art17-detencion",
+      "text": "En una detención preventiva ordinaria, las averiguaciones necesarias para esclarecer los hechos terminan a las 20 horas. Según el artículo 17.2, ¿qué procede si no hay otro motivo que justifique mantener la detención?",
+      "options": ["Mantener la detención hasta que se cumplan 24 horas", "Mantener la detención hasta que se cumplan 48 horas", "Agotar el plazo de 72 horas antes de decidir", "Poner a la persona en libertad o a disposición judicial sin agotar las 72 horas"],
+      "correct": 3,
+      "section": "Constitución Española › TÍTULO I · De los derechos y deberes fundamentales › CAPÍTULO SEGUNDO · Derechos y libertades › Sección 1.ª De los derechos fundamentales y de las libertades públicas › Artículo 17",
+      "quote": "La detención preventiva no podrá durar más del tiempo estrictamente necesario para la realización de las averiguaciones tendentes al esclarecimiento de los hechos, y, en todo caso, en el plazo máximo de setenta y dos horas, el detenido deberá ser puesto en libertad o a disposición de la autoridad judicial."
+    },
+    {
+      "id": "ce-art68-ceuta-melilla",
+      "text": "Al distribuir los escaños del Congreso, ¿qué representación atribuye el artículo 68.2 a Ceuta y Melilla?",
+      "options": ["Un diputado a cada una", "Un diputado compartido por ambas", "Dos diputados a cada una", "Un número variable para cada una en proporción a su población"],
+      "correct": 0,
+      "section": "Constitución Española › TÍTULO III · De las Cortes Generales › CAPÍTULO PRIMERO · De las Cámaras › Artículo 68",
+      "quote": "Las poblaciones de Ceuta y Melilla estarán representadas cada una de ellas por un Diputado."
+    },
+    {
+      "id": "ce-art99-segunda-votacion",
+      "text": "Un candidato a la Presidencia del Gobierno no obtiene mayoría absoluta en la primera votación de investidura. Según el artículo 99.3, ¿cuándo se vuelve a votar la misma propuesta y qué mayoría basta?",
+      "options": ["A las 24 horas; mayoría simple", "A las 48 horas; mayoría absoluta", "A las 48 horas; mayoría simple", "A las 24 horas; mayoría absoluta"],
+      "correct": 2,
+      "section": "Constitución Española › TÍTULO IV · Del Gobierno y de la Administración › Artículo 99",
+      "quote": "De no alcanzarse dicha mayoría, se someterá la misma propuesta a nueva votación cuarenta y ocho horas después de la anterior, y la confianza se entenderá otorgada si obtuviere la mayoría simple."
+    },
+    {
+      "id": "ce-art167-referendum",
+      "text": "Las Cortes Generales aprueban una reforma por el procedimiento del artículo 167. ¿Qué mínimo de parlamentarios puede exigir un referéndum y de qué plazo dispone desde la aprobación?",
+      "options": ["La de una décima parte de cada Cámara, dentro de los quince días siguientes", "La de una décima parte de cualquiera de las Cámaras, dentro de los quince días siguientes", "La de una quinta parte de cualquiera de las Cámaras, dentro de los treinta días siguientes", "La de una quinta parte de cada Cámara, dentro de los treinta días siguientes"],
+      "correct": 1,
+      "section": "Constitución Española › TÍTULO X · De la reforma constitucional › Artículo 167",
+      "quote": "Aprobada la reforma por las Cortes Generales, será sometida a referéndum para su ratificación cuando así lo soliciten, dentro de los quince días siguientes a su aprobación, una décima parte de los miembros de cualquiera de las Cámaras."
+    }
+  ]
+}
