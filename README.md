@@ -12,7 +12,7 @@ Con Node.js 22: `npm ci` y `npm run dev`. `npm run build` genera la web estátic
 4. Para nombrar administrador a un usuario registrado, ejecuta en el editor SQL `update auth.users set raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb) || '{"role":"admin"}'::jsonb where id = 'UUID-DEL-USUARIO';`. Cierra sesión y vuelve a acceder. Los permisos de escritura los comprueba Supabase mediante RLS.
 
 ## GitHub Pages
-Sube el proyecto a la rama `main`, selecciona GitHub Actions en Settings → Pages y crea las variables de Actions `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. El flujo incluido compila y publica al hacer push. Sin variables se publica la demo local.
+Sube el proyecto a la rama `main`, selecciona GitHub Actions en Settings → Pages y crea las variables de Actions `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. El flujo incluido compila y publica al hacer push. La web publicada requiere Supabase e inicio de sesión; sin variables muestra un aviso de configuración. La demo solo se activa con `npm run dev` sin Supabase. Los materiales con `"demo": true` se excluyen del catálogo de producción.
 
 ## Estudio
 ### Apuntes Markdown y referencias

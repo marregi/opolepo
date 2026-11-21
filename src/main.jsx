@@ -69,15 +69,17 @@ function local(k, def) {
     return def();
   }
 }
-const bundledDocs = materials.map((m) => ({
+const localDemo = import.meta.env.DEV && !db;
+const catalog = materials.filter(m => localDemo || !m.demo);
+const bundledDocs = catalog.map((m) => ({
   id: m.id,
   title: m.title,
   cat: categories.indexOf(m.category),
   markdown: m.markdown,
 }));
 const bank = [
-  ...seedBank,
-  ...materials.flatMap((m) =>
+  ...(localDemo ? seedBank : []),
+  ...catalog.flatMap((m) =>
     m.questions.map((q) => ({
       ...q,
       cat: categories.indexOf(m.category),
@@ -87,7 +89,7 @@ const bank = [
   ),
 ];
 function App() {
-  const [data, D] = useState(() => local("of-demo", demo)),
+  const [data, D] = useState(() => localDemo ? local("of-demo", demo) : empty()),
     [qs, Q] = useState(bank),
     [docs, setDocs] = useState(bundledDocs),
     [reading, setReading] = useState(null),
@@ -118,7 +120,7 @@ function App() {
       setTimeout(async () => {
         if (!active || n !== seq) return;
         let u = s?.user,
-          d = local("of-demo", demo),
+          d = empty(),
           q = bank,
           documents = bundledDocs;
         if (u) {
@@ -172,7 +174,7 @@ function App() {
         if (r.error)
           E("No se pudo sincronizar el progreso. Comprueba tu conexión.");
       });
-    } else localStorage.setItem("of-demo", JSON.stringify(d));
+    } else if (localDemo) localStorage.setItem("of-demo", JSON.stringify(d));
   }
   function openNotes(documentId, citation = null) {
     setReading({ documentId, citation });
@@ -215,6 +217,10 @@ function App() {
       : 0,
     admin = user?.app_metadata?.role === "admin";
   function configure(config = null) {
+    if (!qs.length) {
+      nav("Banco de preguntas");
+      return;
+    }
     setInitialConfig(config);
     S(false);
     M("Nueva sesión");
@@ -336,6 +342,14 @@ function App() {
     );
   }
   let initials = user?.email?.slice(0, 2).toUpperCase() || "OE";
+  if (!localDemo && (!db || !ready || !user)) return (
+    <div className="card settings auth-entry">
+      <div className="brand"><span><Layers3 /></span>opolepo<b>.</b></div>
+      {!db ? <p role="alert">Falta configurar la conexión a Supabase para publicar la aplicación.</p>
+        : !ready ? <p role="status">{err || "Cargando tu espacio…"}</p>
+        : <><h1>Accede a tu espacio de estudio</h1><p>Te enviaremos un enlace de acceso a tu correo.</p><Auth /></>}
+    </div>
+  );
   return (
     <div className="app">
       {side && <div className="shade" onClick={() => S(false)} />}
@@ -653,7 +667,7 @@ function App() {
                   (q.text + categories[q.cat])
                     .toLowerCase()
                     .includes(search.toLowerCase()),
-                ) && <p>No hay coincidencias.</p>}
+                 ) && <p>{qs.length ? "No hay coincidencias." : admin ? "El banco está vacío. Añade la primera pregunta para crear sesiones." : "El banco está vacío. Podrás crear sesiones cuando el administrador añada preguntas."}</p>}
               </div>
             </>
           )}
