@@ -347,7 +347,7 @@ function App() {
       <div className="brand"><span><Layers3 /></span>opolepo<b>.</b></div>
       {!db ? <p role="alert">Falta configurar la conexión a Supabase para publicar la aplicación.</p>
         : !ready ? <p role="status">{err || "Cargando tu espacio…"}</p>
-        : <><h1>Accede a tu espacio de estudio</h1><p>Te enviaremos un enlace de acceso a tu correo.</p><Auth /></>}
+        : <><h1>Accede a tu espacio de estudio</h1><p>Acceso por invitación. Introduce el correo con el que te han invitado.</p><Auth /></>}
     </div>
   );
   return (
@@ -875,9 +875,11 @@ function Auth() {
         e.preventDefault();
         let { error } = await db.auth.signInWithOtp({
           email: e.target.email.value,
-          options: { emailRedirectTo: location.href.split("#")[0] },
+          options: { shouldCreateUser: false, emailRedirectTo: location.href.split("#")[0] },
         });
-        V(error ? error.message : "Revisa tu correo para acceder.");
+        V(error && error.code !== "otp_disabled" && error.code !== "user_not_found"
+          ? "No se ha podido solicitar el enlace. Inténtalo más tarde o contacta con el administrador."
+          : "Si tu correo tiene acceso, recibirás un enlace. Revisa también la carpeta de spam.");
       }}
     >
       <label>
