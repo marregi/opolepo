@@ -8,10 +8,10 @@ Con Node.js 22: `npm ci` y `npm run dev`. `npm run build` genera la web estátic
 ## Supabase
 1. Crea un proyecto gratuito y ejecuta `supabase.sql` una vez en el editor SQL.
 2. Copia `.env.example` a `.env.local` y rellena la URL y la clave pública anon de tu proyecto. Reinicia Vite. Nunca uses la clave `service_role` en el frontend.
-3. Activa el acceso por correo y configura Site URL y las URL de redirección autorizadas en Authentication, incluyendo la URL final con el subdirectorio del repositorio. En Ajustes puedes solicitar el enlace de acceso.
+3. En Authentication → Sign In / Providers, habilita **Email** y desactiva **Allow new users to sign up**. El formulario usa correo y contraseña para cuentas existentes; el alta está a cargo del administrador.
 4. Para nombrar administrador a un usuario registrado, ejecuta en el editor SQL `update auth.users set raw_app_meta_data = coalesce(raw_app_meta_data, '{}'::jsonb) || '{"role":"admin"}'::jsonb where id = 'UUID-DEL-USUARIO';`. Cierra sesión y vuelve a acceder. Los permisos de escritura los comprueba Supabase mediante RLS.
 
-**Acceso por invitación:** desactiva «Allow new users to sign up» en Authentication → Sign In / Providers. Mantén habilitado Email. Invita a las personas autorizadas desde Authentication → Users → Add user → Send invitation. El formulario solicita enlaces solo para cuentas existentes (`shouldCreateUser: false`); la restricción de registro en el servidor es imprescindible. Revisa las cuentas anteriores, ya que cerrar el registro no revoca su acceso. Para enviar a destinatarios externos al equipo de Supabase configura un SMTP propio.
+**Crear cuentas:** en Authentication → Users → Add user → Create new user, introduce el correo y una contraseña individual. Marca **Auto Confirm User** para que pueda entrar inmediatamente. Comunica las credenciales a la persona por un canal privado. No hace falta SMTP para este flujo. Las cuentas anteriores creadas solo con enlace necesitan una contraseña; conserva su identificador para mantener su progreso.
 
 ## GitHub Pages
 Sube el proyecto a la rama `main`, selecciona GitHub Actions en Settings → Pages y crea las variables de Actions `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. El flujo incluido compila y publica al hacer push. La web publicada requiere Supabase e inicio de sesión; sin variables muestra un aviso de configuración. La demo solo se activa con `npm run dev` sin Supabase. Los materiales con `"demo": true` se excluyen del catálogo de producción.

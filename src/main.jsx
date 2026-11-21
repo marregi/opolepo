@@ -347,7 +347,7 @@ function App() {
       <div className="brand"><span><Layers3 /></span>opolepo<b>.</b></div>
       {!db ? <p role="alert">Falta configurar la conexión a Supabase para publicar la aplicación.</p>
         : !ready ? <p role="status">{err || "Cargando tu espacio…"}</p>
-        : <><h1>Accede a tu espacio de estudio</h1><p>Acceso por invitación. Introduce el correo con el que te han invitado.</p><Auth /></>}
+        : <><h1>Accede a tu espacio de estudio</h1><p>Usa el correo y la contraseña de tu cuenta de opolepo.</p><Auth /></>}
     </div>
   );
   return (
@@ -868,25 +868,39 @@ function Dialog({ title, close, children }) {
   );
 }
 function Auth() {
-  let [msg, V] = useState("");
+  const [msg, V] = useState(""), [pending, setPending] = useState(false);
   return (
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        let { error } = await db.auth.signInWithOtp({
-          email: e.target.email.value,
-          options: { shouldCreateUser: false, emailRedirectTo: location.href.split("#")[0] },
-        });
-        V(error && error.code !== "otp_disabled" && error.code !== "user_not_found"
-          ? "No se ha podido solicitar el enlace. Inténtalo más tarde o contacta con el administrador."
-          : "Si tu correo tiene acceso, recibirás un enlace. Revisa también la carpeta de spam.");
+        if (pending) return;
+        const fields = new FormData(e.currentTarget);
+        V("");
+        setPending(true);
+        try {
+          const { error } = await db.auth.signInWithPassword({
+            email: fields.get("email").trim(),
+            password: fields.get("password"),
+          });
+          if (error) V(error.code === "invalid_credentials"
+            ? "Correo o contraseña incorrectos."
+            : "No se ha podido iniciar sesión. Inténtalo de nuevo o consulta al administrador.");
+        } catch {
+          V("No se ha podido conectar. Comprueba tu conexión e inténtalo de nuevo.");
+        } finally {
+          setPending(false);
+        }
       }}
     >
       <label>
         Correo electrónico
-        <input type="email" name="email" required />
+        <input type="email" name="email" autoComplete="username" required />
       </label>
-      <button className="primary">Recibir enlace de acceso</button>
+      <label>
+        Contraseña
+        <input type="password" name="password" autoComplete="current-password" required />
+      </label>
+      <button className="primary" disabled={pending}>{pending ? "Entrando…" : "Iniciar sesión"}</button>
       <p role="status">{msg}</p>
     </form>
   );
